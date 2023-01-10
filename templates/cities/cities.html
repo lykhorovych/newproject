@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h4>Додати місто</h4>
+
+{% url 'add' as addcity %}
+{% include 'cities/form.html' with action=addcity button="Додати" %}
+
+{% include 'cities/messages.html' %}
+
+<h1>Список міст</h1>
+<div class="container-fluid">
+    <div class="col-md-4">
+        <table class="table table-striped table-hover mx-auto my-2">
+            {% for city in page_obj %}
+            <tr>
+                <td><a href="{{city.get_absolute_url}}">
+                    <button class="btn btn-outline-secondary">Перегляд</button>
+                </a></td>
+                <td><a href="{% url 'update-city' city.pk %}">
+                    <button class="btn btn-outline-primary">Редагувати</button>
+                </a></td>
+                <td><a href="{% url 'delete-city' city.pk %}">
+                    <button class="btn btn-outline-danger">Видалити</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td><input type="text" value="{{city.name}}" minlength="100" disabled></td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% include 'cities/cities_paginator2.html' %}
+    </div>
+</div>
+
+
+{% endblock content %}
+

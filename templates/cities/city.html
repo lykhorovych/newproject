@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+{% url 'update-city' city.pk as update %}
+{% url 'delete-city' city.pk as delete %}
+
+{% if request.path == update %}
+{% include "cities/form.html" with button='Редагувати' %}
+{% endif %}
+
+{% if  request.path == delete %}
+{% include "cities/form.html" with button='Видалити' %}
+{% endif %}
+
+{% if request.path == city.get_absolute_url%}
+<input type="text" value="{{city.name}}" class="form-control" disabled>
+<a href="{% url 'all_cities' %}"><button type="submit" class="btn btn-outline-primary">Назад</button></a>
+{% endif %}
+
+{% endblock %}
+
